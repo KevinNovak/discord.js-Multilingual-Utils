@@ -1,0 +1,18 @@
+{
+    "embeds": {
+        "example": {
+            "title": "Example Embed",
+            "description": [
+                "This is an example",
+                "",
+                "I can have new lines!",
+                "",
+                "This is an **{{EXAMPLE_VARIABLE}}**."
+            ],
+            "fields": [{ "name": "Example Field", "value": "This is an example field!" }]
+        }
+    },
+    "refs": {
+        "exampleTitle": "Example Title!"
+    }
+}
