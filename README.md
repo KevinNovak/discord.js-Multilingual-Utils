@@ -26,19 +26,26 @@ Language files should be named using the language code of their contents. For ex
 {
     "embeds": {
         "example": {
-            "title": "Example Embed",
+            "title": "{{REF:exampleTitle}}",
             "description": [
                 "This is an example",
                 "",
                 "I can have new lines!",
                 "",
-                "This is an **{{EXAMPLE_VARIABLE}}**."
+                "This is an **{{EXAMPLE_VARIABLE}}**.",
+                "",
+                "{{REF:exampleReference}}"
             ],
             "fields": [{ "name": "Example Field", "value": "This is an example field!" }]
         }
     },
     "refs": {
-        "exampleTitle": "Example Title!"
+        "exampleTitle": "Example Embed",
+        "exampleReference": [
+            "This is an example reference!",
+            "",
+            "I can be a single line or have multiple lines!"
+        ]
     }
 }
 ```
