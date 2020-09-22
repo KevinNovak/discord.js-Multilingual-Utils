@@ -7,7 +7,7 @@
                 "",
                 "I can have new lines!",
                 "",
-                "This is an **{{EXAMPLE_VARIABLE}}**.",
+                "This is an **{{EXAMPLE_VARIABLE}}**!",
                 "",
                 "{{REF:exampleReference}}"
             ],
