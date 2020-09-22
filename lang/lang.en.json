@@ -1,4 +1,7 @@
 {
+    "default": {
+        "color": "0x0099ff"
+    },
     "embeds": {
         "example": {
             "title": "{{REF:exampleTitle}}",

@@ -24,6 +24,9 @@ Language files should be named using the language code of their contents. For ex
 
 ```json
 {
+    "default": {
+        "color": "0x0099ff"
+    },
     "embeds": {
         "example": {
             "title": "{{REF:exampleTitle}}",
@@ -32,7 +35,7 @@ Language files should be named using the language code of their contents. For ex
                 "",
                 "I can have new lines!",
                 "",
-                "This is an **{{EXAMPLE_VARIABLE}}**.",
+                "This is an **{{EXAMPLE_VARIABLE}}**!",
                 "",
                 "{{REF:exampleReference}}"
             ],
@@ -81,4 +84,4 @@ client.on('message', msg => {
 client.login(Config.token);
 ```
 
-![Example](https://i.imgur.com/ZnjVEhi.png)
+![Example](https://i.imgur.com/daduqzo.png)

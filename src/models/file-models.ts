@@ -1,6 +1,7 @@
 import { ColorResolvable } from 'discord.js';
 
 export interface FileData {
+    default: EmbedData;
     embeds: { [embedName: string]: EmbedData };
     refs: { [refName: string]: string | string[] };
 }
