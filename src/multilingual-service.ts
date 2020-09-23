@@ -1,10 +1,9 @@
 import { MessageEmbed } from 'discord.js';
-import fs from 'fs';
 import path from 'path';
 
 import { FileData } from './models/file-models';
 import { EmbedBuilder } from './services/embed-builder';
-import { JsonUtils, RegexUtils } from './utils';
+import { FileUtils, RegexUtils, StringUtils } from './utils';
 
 let Config = require('../config/config.json');
 
@@ -13,7 +12,7 @@ export class MultilingualService {
 
     // TODO: Optional "options" object
     constructor(folderPath: string) {
-        let fileNames = fs.readdirSync(folderPath);
+        let fileNames = FileUtils.readFileNames(folderPath);
         for (let fileName of fileNames) {
             // Extract file language code
             let langCode = RegexUtils.extractLangCode(fileName);
@@ -21,23 +20,8 @@ export class MultilingualService {
                 continue;
             }
 
-            // Read File
             let filePath = path.join(folderPath, fileName);
-            let fileContents = fs.readFileSync(filePath, 'utf8');
-
-            // Check if file is JSON
-            let fileData: FileData;
-            try {
-                let replacedFileContents = fileContents;
-                // Replace up to X levels deep
-                for (let i = 0; i < Config.replacementLevels; i++) {
-                    let rawFileData: FileData = JSON.parse(replacedFileContents);
-                    replacedFileContents = this.replaceRefs(replacedFileContents, rawFileData.refs);
-                }
-                fileData = JSON.parse(replacedFileContents);
-            } catch (error) {
-                continue;
-            }
+            let fileData = this.getFileData(filePath);
             if (!fileData) {
                 continue;
             }
@@ -45,6 +29,30 @@ export class MultilingualService {
             let embeds = EmbedBuilder.buildEmbeds(fileData);
             this.embeds[langCode] = embeds;
         }
+    }
+
+    private getFileData(filePath: string): FileData {
+        // Read file
+        let fileContents = FileUtils.readFile(filePath);
+
+        // Check if file is JSON
+        let fileData: FileData;
+        try {
+            let replacedFileContents = fileContents;
+            // Replace up to X levels deep
+            for (let i = 0; i < Config.replacementLevels; i++) {
+                let rawFileData: FileData = JSON.parse(replacedFileContents);
+                replacedFileContents = StringUtils.replaceRefs(
+                    replacedFileContents,
+                    rawFileData.refs
+                );
+            }
+            fileData = JSON.parse(replacedFileContents);
+        } catch (error) {
+            return;
+        }
+
+        return fileData;
     }
 
     public getEmbed(
@@ -63,54 +71,6 @@ export class MultilingualService {
             return newEmbed;
         }
 
-        return this.populateEmbed(newEmbed, variables);
-    }
-
-    private replaceRefs(
-        input: string,
-        refDatas: {
-            [refName: string]: string | string[];
-        }
-    ): string {
-        let output = input;
-        for (let [refName, refData] of Object.entries(refDatas)) {
-            let refRegex = new RegExp(`{{REF:${refName}}}`, 'g');
-            let refString = JsonUtils.joinString(refData, true);
-            output = output.replace(refRegex, refString);
-        }
-        return output;
-    }
-
-    private populateEmbed(
-        embed: MessageEmbed,
-        variables?: { [name: string]: string }
-    ): MessageEmbed {
-        if (embed.title) {
-            embed.title = this.replaceVariables(embed.title, variables);
-        }
-
-        if (embed.description) {
-            embed.description = this.replaceVariables(embed.description, variables);
-        }
-
-        for (let [index, field] of embed.fields.entries()) {
-            embed.fields[index].name = this.replaceVariables(field.name, variables);
-            embed.fields[index].value = this.replaceVariables(field.value, variables);
-        }
-
-        if (embed.footer?.text) {
-            embed.footer.text = this.replaceVariables(embed.footer.text, variables);
-        }
-
-        return embed;
-    }
-
-    private replaceVariables(input: string, variables: { [name: string]: string }): string {
-        let output = input;
-        for (let [varName, varValue] of Object.entries(variables)) {
-            let refRegex = new RegExp(`{{${varName}}}`, 'g');
-            output = output.replace(refRegex, varValue);
-        }
-        return output;
+        return EmbedBuilder.populateEmbed(newEmbed, variables);
     }
 }

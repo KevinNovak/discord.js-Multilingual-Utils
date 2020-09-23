@@ -57,9 +57,8 @@ Language files should be named using the language code of their contents. For ex
 
 ```typescript
 import { Client } from 'discord.js';
+import { MultilingualService } from 'discord.js-multilingual-utils';
 import path from 'path';
-
-import { MultilingualService } from './multilingual-service';
 
 let Config = require('../config/config.json');
 

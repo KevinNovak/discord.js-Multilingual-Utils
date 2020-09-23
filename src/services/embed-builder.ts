@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 
 import { EmbedData, FileData } from '../models/file-models';
-import { JsonUtils } from '../utils';
+import { JsonUtils, StringUtils } from '../utils';
 
 export abstract class EmbedBuilder {
     public static buildEmbeds(fileData: FileData): { [embedName: string]: MessageEmbed } {
@@ -75,6 +75,30 @@ export abstract class EmbedBuilder {
         let color = embedData.color;
         if (color) {
             embed.setColor(color);
+        }
+
+        return embed;
+    }
+
+    public static populateEmbed(
+        embed: MessageEmbed,
+        variables?: { [name: string]: string }
+    ): MessageEmbed {
+        if (embed.title) {
+            embed.title = StringUtils.replaceVariables(embed.title, variables);
+        }
+
+        if (embed.description) {
+            embed.description = StringUtils.replaceVariables(embed.description, variables);
+        }
+
+        for (let [index, field] of embed.fields.entries()) {
+            embed.fields[index].name = StringUtils.replaceVariables(field.name, variables);
+            embed.fields[index].value = StringUtils.replaceVariables(field.value, variables);
+        }
+
+        if (embed.footer?.text) {
+            embed.footer.text = StringUtils.replaceVariables(embed.footer.text, variables);
         }
 
         return embed;
