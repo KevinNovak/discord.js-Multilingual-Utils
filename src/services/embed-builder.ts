@@ -17,7 +17,7 @@ export abstract class EmbedBuilder {
     }
 
     private static buildEmbed(embedData: EmbedData, defaultEmbed?: MessageEmbed): MessageEmbed {
-        let embed = defaultEmbed ?? new MessageEmbed();
+        let embed = new MessageEmbed(defaultEmbed ?? undefined);
 
         let title = JsonUtils.joinString(embedData.title);
         if (title) {
