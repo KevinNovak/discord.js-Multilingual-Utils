@@ -1,6 +1,6 @@
 {
     "name": "discord.js-multilingual-utils",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "author": "Kevin Novak",
     "description": "Multilingual utilities for discord.js.",
     "license": "MIT",
@@ -12,7 +12,7 @@
         "pack": "npm pack"
     },
     "dependencies": {
-        "discord.js": "12.3.1"
+        "discord.js": "12.4.0"
     },
     "devDependencies": {
         "@types/node": "14.11.10",
