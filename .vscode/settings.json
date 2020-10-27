@@ -1,7 +1,12 @@
 {
-    "cSpell.words": [
-        "Novak",
-        "datas",
-        "multilanguage"
-    ]
+    "[json]": {
+        "editor.formatOnSave": true
+    },
+    "[markdown]": {
+        "editor.formatOnSave": true
+    },
+    "[typescript]": {
+        "editor.formatOnSave": true
+    },
+    "cSpell.words": ["Novak", "datas", "multilanguage"]
 }
