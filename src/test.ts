@@ -13,13 +13,15 @@ client.on('ready', () => {
     console.log(`Logged in as '${client.user.tag}'!`);
 });
 
-client.on('message', msg => {
+client.on('message', async msg => {
     if (msg.content === 'test') {
         let embed = multilingualService.getEmbed('example', 'en', {
             EXAMPLE_VARIABLE: 'Example Variable',
         });
+        await msg.channel.send(embed);
 
-        msg.channel.send(embed);
+        let ref = multilingualService.getRef('exampleReference', 'en');
+        await msg.channel.send(ref);
     }
 });
 

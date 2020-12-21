@@ -3,12 +3,21 @@ import path from 'path';
 
 import { FileData } from './models/file-models';
 import { EmbedBuilder } from './services/embed-builder';
-import { FileUtils, RegexUtils, StringUtils } from './utils';
+import { FileUtils, JsonUtils, RegexUtils, StringUtils } from './utils';
 
 let Config = require('../config/config.json');
 
 export class MultilingualService {
-    private embeds: { [langCode: string]: { [embedName: string]: MessageEmbed } } = {};
+    private data: {
+        [langCode: string]: {
+            refs: {
+                [refName: string]: string;
+            };
+            embeds: {
+                [embedName: string]: MessageEmbed;
+            };
+        };
+    } = {};
 
     // TODO: Optional "options" object
     constructor(folderPath: string) {
@@ -16,18 +25,24 @@ export class MultilingualService {
         for (let fileName of fileNames) {
             // Extract file language code
             let langCode = RegexUtils.extractLangCode(fileName);
-            if (!langCode || this.embeds[langCode]) {
+            if (!langCode || this.data[langCode]) {
                 continue;
             }
 
             let filePath = path.join(folderPath, fileName);
-            let fileData = this.getFileData(filePath);
-            if (!fileData) {
+            let rawFileData = this.getFileData(filePath);
+            if (!rawFileData) {
                 continue;
             }
 
-            let embeds = EmbedBuilder.buildEmbeds(fileData);
-            this.embeds[langCode] = embeds;
+            let fileData = { refs: {}, embeds: {} };
+            for (let [refNam, refData] of Object.entries(rawFileData.refs)) {
+                let ref = JsonUtils.joinString(refData);
+                fileData.refs[refNam] = ref;
+            }
+            fileData.embeds = EmbedBuilder.buildEmbeds(rawFileData);
+
+            this.data[langCode] = fileData;
         }
     }
 
@@ -60,7 +75,7 @@ export class MultilingualService {
         langCode: string,
         variables?: { [name: string]: string }
     ): MessageEmbed {
-        let embed = this.embeds[langCode]?.[embedName];
+        let embed = this.data[langCode]?.embeds[embedName];
         if (!embed) {
             return;
         }
@@ -72,5 +87,22 @@ export class MultilingualService {
         }
 
         return EmbedBuilder.populateEmbed(newEmbed, variables);
+    }
+
+    public getRef(
+        refName: string,
+        langCode: string,
+        variables?: { [name: string]: string }
+    ): string {
+        let ref = this.data[langCode]?.refs[refName];
+        if (!ref) {
+            return;
+        }
+
+        if (!variables) {
+            return ref;
+        }
+
+        return StringUtils.replaceVariables(ref, variables);
     }
 }
