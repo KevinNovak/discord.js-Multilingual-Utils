@@ -8,7 +8,7 @@ import { FileUtils, JsonUtils, RegexUtils, StringUtils } from './utils';
 let Config = require('../config/config.json');
 
 export class MultilingualService {
-    private data: {
+    private internalDatas: {
         [langCode: string]: {
             refs: {
                 [refName: string]: string;
@@ -25,7 +25,7 @@ export class MultilingualService {
         for (let fileName of fileNames) {
             // Extract file language code
             let langCode = RegexUtils.extractLangCode(fileName);
-            if (!langCode || this.data[langCode]) {
+            if (!langCode || this.internalDatas[langCode]) {
                 continue;
             }
 
@@ -35,14 +35,14 @@ export class MultilingualService {
                 continue;
             }
 
-            let fileData = { refs: {}, embeds: {} };
+            let internalData = { refs: {}, embeds: {} };
             for (let [refNam, refData] of Object.entries(rawFileData.refs)) {
                 let ref = JsonUtils.joinString(refData);
-                fileData.refs[refNam] = ref;
+                internalData.refs[refNam] = ref;
             }
-            fileData.embeds = EmbedBuilder.buildEmbeds(rawFileData);
+            internalData.embeds = EmbedBuilder.buildEmbeds(rawFileData);
 
-            this.data[langCode] = fileData;
+            this.internalDatas[langCode] = internalData;
         }
     }
 
@@ -75,7 +75,7 @@ export class MultilingualService {
         langCode: string,
         variables?: { [name: string]: string }
     ): MessageEmbed {
-        let embed = this.data[langCode]?.embeds[embedName];
+        let embed = this.internalDatas[langCode]?.embeds[embedName];
         if (!embed) {
             return;
         }
@@ -94,7 +94,7 @@ export class MultilingualService {
         langCode: string,
         variables?: { [name: string]: string }
     ): string {
-        let ref = this.data[langCode]?.refs[refName];
+        let ref = this.internalDatas[langCode]?.refs[refName];
         if (!ref) {
             return;
         }
