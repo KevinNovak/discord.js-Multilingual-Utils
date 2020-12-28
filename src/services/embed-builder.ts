@@ -3,7 +3,7 @@ import { MessageEmbed } from 'discord.js';
 import { EmbedData, FileData } from '../models/file-models';
 import { JsonUtils, StringUtils } from '../utils';
 
-export abstract class EmbedBuilder {
+export class EmbedBuilder {
     public static buildEmbeds(fileData: FileData): { [embedName: string]: MessageEmbed } {
         let defaultEmbed = this.buildEmbed(fileData.default);
 

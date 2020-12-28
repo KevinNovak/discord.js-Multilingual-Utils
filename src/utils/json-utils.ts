@@ -1,4 +1,4 @@
-export abstract class JsonUtils {
+export class JsonUtils {
     public static joinString(input: string | string[], escapeNewLine: boolean = false): string {
         if (input instanceof Array) {
             if (escapeNewLine) {

@@ -1,6 +1,6 @@
 const FILE_NAME_REGEX = /\.([^\s.]+)\.json/i;
 
-export abstract class RegexUtils {
+export class RegexUtils {
     public static extractLangCode(input: string): string {
         let langCode = this.findMatch(input, FILE_NAME_REGEX);
         if (!langCode) {

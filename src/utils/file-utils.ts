@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-export abstract class FileUtils {
+export class FileUtils {
     public static readFileNames(folderPath: string): string[] {
         return fs.readdirSync(folderPath);
     }

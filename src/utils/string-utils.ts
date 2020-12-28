@@ -1,6 +1,6 @@
 import { JsonUtils } from '.';
 
-export abstract class StringUtils {
+export class StringUtils {
     public static replaceRefs(
         input: string,
         refDatas: {
