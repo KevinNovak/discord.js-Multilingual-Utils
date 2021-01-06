@@ -5,8 +5,6 @@ import { FileData } from './models/file-models';
 import { EmbedBuilder } from './services/embed-builder';
 import { FileUtils, JsonUtils, RegexUtils, StringUtils } from './utils';
 
-let Config = require('../config/config.json');
-
 export class MultilingualService {
     private internalDatas: {
         [langCode: string]: {
@@ -23,7 +21,7 @@ export class MultilingualService {
     } = {};
 
     // TODO: Optional "options" object
-    constructor(folderPath: string) {
+    constructor(folderPath: string, private replacementLevels = 10) {
         let fileNames = FileUtils.readFileNames(folderPath);
         for (let fileName of fileNames) {
             // Extract file language code
@@ -65,7 +63,7 @@ export class MultilingualService {
         try {
             let replacedFileContents = fileContents;
             // Replace up to X levels deep
-            for (let i = 0; i < Config.replacementLevels; i++) {
+            for (let i = 0; i < this.replacementLevels; i++) {
                 let rawFileData: FileData = JSON.parse(replacedFileContents);
                 replacedFileContents = StringUtils.replaceRefs(
                     replacedFileContents,

@@ -1,4 +1,3 @@
 {
-    "token": "<DISCORD_BOT_TOKEN>",
-    "replacementLevels": 10
+    "token": "<DISCORD_BOT_TOKEN>"
 }
