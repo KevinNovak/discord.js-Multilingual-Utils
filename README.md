@@ -42,6 +42,9 @@ Language files should be named using the language code of their contents. For ex
             "fields": [{ "name": "Example Field", "value": "This is an example field!" }]
         }
     },
+    "regexes": {
+        "example": "/\\b(example|ex)\\b/i"
+    },
     "refs": {
         "exampleTitle": "Example Embed",
         "exampleReference": [
@@ -54,6 +57,8 @@ Language files should be named using the language code of their contents. For ex
 ```
 
 ## Example Usage
+
+### Code Example
 
 ```typescript
 import { Client } from 'discord.js';
@@ -70,17 +75,54 @@ client.on('ready', () => {
     console.log(`Logged in as '${client.user.tag}'!`);
 });
 
-client.on('message', msg => {
-    if (msg.content === 'test') {
-        let embed = multilingualService.getEmbed('example', 'en', {
-            EXAMPLE_VARIABLE: 'Example Variable',
-        });
+client.on('message', async msg => {
+    let args = msg.content.split(' ');
+    switch (args[0]) {
+        case 'testEmbed': {
+            let embed = multilingualService.getEmbed('example', 'en', {
+                EXAMPLE_VARIABLE: 'Example Variable',
+            });
+            await msg.channel.send(embed);
+            return;
+        }
 
-        msg.channel.send(embed);
+        case 'testRegex': {
+            let value = args[1];
+            if (!value) {
+                await msg.channel.send('Please enter a value to test.');
+                return;
+            }
+
+            let regex = multilingualService.getRegex('example', 'en');
+            let result = regex.test(args[1]);
+            if (result) {
+                await msg.channel.send('Value matched!');
+                return;
+            } else {
+                await msg.channel.send('Value did NOT match!');
+                return;
+            }
+        }
+
+        case 'testRef': {
+            let ref = multilingualService.getRef('exampleReference', 'en');
+            await msg.channel.send(ref);
+            return;
+        }
     }
 });
 
 client.login(Config.token);
 ```
 
-![Example](https://i.imgur.com/daduqzo.png)
+### Embed Example
+
+![Embed Example](https://i.imgur.com/HVTBtQu.png)
+
+### Regex Example
+
+![Regex Example](https://i.imgur.com/yOn8MqS.png)
+
+### Reference Example
+
+![Reference Example](https://i.imgur.com/a43uxe0.png)
