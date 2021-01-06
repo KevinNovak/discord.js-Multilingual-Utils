@@ -8,5 +8,5 @@
     "[typescript]": {
         "editor.formatOnSave": true
     },
-    "cSpell.words": ["Novak", "datas", "multilanguage"]
+    "cSpell.words": ["Novak", "datas", "multilanguage", "regexes"]
 }

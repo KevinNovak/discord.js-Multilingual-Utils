@@ -10,11 +10,14 @@ let Config = require('../config/config.json');
 export class MultilingualService {
     private internalDatas: {
         [langCode: string]: {
-            refs: {
-                [refName: string]: string;
-            };
             embeds: {
                 [embedName: string]: MessageEmbed;
+            };
+            regexes: {
+                [regexName: string]: RegExp;
+            };
+            refs: {
+                [refName: string]: string;
             };
         };
     } = {};
@@ -35,12 +38,19 @@ export class MultilingualService {
                 continue;
             }
 
-            let internalData = { refs: {}, embeds: {} };
-            for (let [refNam, refData] of Object.entries(rawFileData.refs)) {
-                let ref = JsonUtils.joinString(refData);
-                internalData.refs[refNam] = ref;
-            }
+            let internalData = { embeds: {}, regexes: {}, refs: {} };
+
             internalData.embeds = EmbedBuilder.buildEmbeds(rawFileData);
+
+            for (let [refName, refData] of Object.entries(rawFileData.refs)) {
+                let ref = JsonUtils.joinString(refData);
+                internalData.refs[refName] = ref;
+            }
+
+            for (let [regexName, regexString] of Object.entries(rawFileData.regexes)) {
+                let regex = RegexUtils.extractRegex(regexString);
+                internalData.regexes[regexName] = regex;
+            }
 
             this.internalDatas[langCode] = internalData;
         }
@@ -87,6 +97,10 @@ export class MultilingualService {
         }
 
         return EmbedBuilder.populateEmbed(newEmbed, variables);
+    }
+
+    public getRegex(regexName: string, langCode: string): RegExp {
+        return this.internalDatas[langCode]?.regexes[regexName];
     }
 
     public getRef(

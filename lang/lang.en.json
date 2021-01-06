@@ -17,6 +17,9 @@
             "fields": [{ "name": "Example Field", "value": "This is an example field!" }]
         }
     },
+    "regexes": {
+        "example": "/\\b(example|ex)\\b/i"
+    },
     "refs": {
         "exampleTitle": "Example Embed",
         "exampleReference": [
