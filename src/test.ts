@@ -14,14 +14,39 @@ client.on('ready', () => {
 });
 
 client.on('message', async msg => {
-    if (msg.content === 'test') {
-        let embed = multilingualService.getEmbed('example', 'en', {
-            EXAMPLE_VARIABLE: 'Example Variable',
-        });
-        await msg.channel.send(embed);
+    let args = msg.content.split(' ');
+    switch (args[0]) {
+        case 'testEmbed': {
+            let embed = multilingualService.getEmbed('example', 'en', {
+                EXAMPLE_VARIABLE: 'Example Variable',
+            });
+            await msg.channel.send(embed);
+            return;
+        }
 
-        let ref = multilingualService.getRef('exampleReference', 'en');
-        await msg.channel.send(ref);
+        case 'testRegex': {
+            let value = args[1];
+            if (!value) {
+                await msg.channel.send('Please enter a value to test.');
+                return;
+            }
+
+            let regex = multilingualService.getRegex('example', 'en');
+            let result = regex.test(args[1]);
+            if (result) {
+                await msg.channel.send('Value matched!');
+                return;
+            } else {
+                await msg.channel.send('Value did NOT match!');
+                return;
+            }
+        }
+
+        case 'testRef': {
+            let ref = multilingualService.getRef('exampleReference', 'en');
+            await msg.channel.send(ref);
+            return;
+        }
     }
 });
 
