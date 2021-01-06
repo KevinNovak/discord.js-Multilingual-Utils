@@ -40,14 +40,18 @@ export class MultilingualService {
 
             internalData.embeds = EmbedBuilder.buildEmbeds(rawFileData);
 
-            for (let [refName, refData] of Object.entries(rawFileData.refs)) {
-                let ref = JsonUtils.joinString(refData);
-                internalData.refs[refName] = ref;
+            if (rawFileData.refs) {
+                for (let [refName, refData] of Object.entries(rawFileData.refs)) {
+                    let ref = JsonUtils.joinString(refData);
+                    internalData.refs[refName] = ref;
+                }
             }
 
-            for (let [regexName, regexString] of Object.entries(rawFileData.regexes)) {
-                let regex = RegexUtils.extractRegex(regexString);
-                internalData.regexes[regexName] = regex;
+            if (rawFileData.regexes) {
+                for (let [regexName, regexString] of Object.entries(rawFileData.regexes)) {
+                    let regex = RegexUtils.extractRegex(regexString);
+                    internalData.regexes[regexName] = regex;
+                }
             }
 
             this.internalDatas[langCode] = internalData;
@@ -65,10 +69,12 @@ export class MultilingualService {
             // Replace up to X levels deep
             for (let i = 0; i < this.replacementLevels; i++) {
                 let rawFileData: FileData = JSON.parse(replacedFileContents);
-                replacedFileContents = StringUtils.replaceRefs(
-                    replacedFileContents,
-                    rawFileData.refs
-                );
+                if (rawFileData.refs) {
+                    replacedFileContents = StringUtils.replaceRefs(
+                        replacedFileContents,
+                        rawFileData.refs
+                    );
+                }
             }
             fileData = JSON.parse(replacedFileContents);
         } catch (error) {

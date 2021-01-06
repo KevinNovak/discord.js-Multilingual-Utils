@@ -5,12 +5,15 @@ import { JsonUtils, StringUtils } from '../utils';
 
 export class EmbedBuilder {
     public static buildEmbeds(fileData: FileData): { [embedName: string]: MessageEmbed } {
-        let defaultEmbed = this.buildEmbed(fileData.default);
+        let defaultEmbed = fileData.default ? this.buildEmbed(fileData.default) : undefined;
 
         let embeds = {};
-        for (let [embedName, embedData] of Object.entries(fileData.embeds)) {
-            let embed = this.buildEmbed(embedData, defaultEmbed);
-            embeds[embedName] = embed;
+
+        if (fileData.embeds) {
+            for (let [embedName, embedData] of Object.entries(fileData.embeds)) {
+                let embed = this.buildEmbed(embedData, defaultEmbed);
+                embeds[embedName] = embed;
+            }
         }
 
         return embeds;
