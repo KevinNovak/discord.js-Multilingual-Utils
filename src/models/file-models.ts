@@ -1,10 +1,22 @@
 import { ColorResolvable } from 'discord.js';
 
 export interface FileData {
-    default?: EmbedData;
-    embeds?: { [embedName: string]: EmbedData };
-    regexes?: { [regexName: string]: string };
-    refs?: { [refName: string]: string | string[] };
+    defaultEmbed?: EmbedData;
+    embeds?: {
+        [categoryName: string]: {
+            [embedName: string]: EmbedData;
+        };
+    };
+    regexes?: {
+        [categoryName: string]: {
+            [regexName: string]: string;
+        };
+    };
+    refs?: {
+        [categoryName: string]: {
+            [refName: string]: string | string[];
+        };
+    };
 }
 
 export interface EmbedData {

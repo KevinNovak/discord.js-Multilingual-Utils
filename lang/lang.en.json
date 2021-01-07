@@ -1,31 +1,37 @@
 {
-    "default": {
+    "defaultEmbed": {
         "color": "0x0099ff"
     },
     "embeds": {
-        "example": {
-            "title": "{{REF:exampleTitle}}",
-            "description": [
-                "This is an example",
-                "",
-                "I can have new lines!",
-                "",
-                "This is an **{{EXAMPLE_VARIABLE}}**!",
-                "",
-                "{{REF:exampleReference}}"
-            ],
-            "fields": [{ "name": "Example Field", "value": "This is an example field!" }]
+        "myCategory": {
+            "example": {
+                "title": "{{REF:myCategory.exampleTitle}}",
+                "description": [
+                    "This is an example",
+                    "",
+                    "I can have new lines!",
+                    "",
+                    "This is an **{{EXAMPLE_VARIABLE}}**!",
+                    "",
+                    "{{REF:myCategory.exampleReference}}"
+                ],
+                "fields": [{ "name": "Example Field", "value": "This is an example field!" }]
+            }
         }
     },
     "regexes": {
-        "example": "/\\b(example|ex)\\b/i"
+        "myCategory": {
+            "example": "/\\b(example|ex)\\b/i"
+        }
     },
     "refs": {
-        "exampleTitle": "Example Embed",
-        "exampleReference": [
-            "This is an example reference!",
-            "",
-            "I can be a single line or have multiple lines!"
-        ]
+        "myCategory": {
+            "exampleTitle": "Example Embed",
+            "exampleReference": [
+                "This is an example reference!",
+                "",
+                "I can be a single line or have multiple lines!"
+            ]
+        }
     }
 }

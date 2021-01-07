@@ -4,13 +4,17 @@ export class StringUtils {
     public static replaceRefs(
         input: string,
         refDatas: {
-            [refName: string]: string | string[];
+            [categoryName: string]: {
+                [refName: string]: string | string[];
+            };
         }
     ): string {
         let output = input;
-        for (let [refName, refData] of Object.entries(refDatas)) {
-            let refString = JsonUtils.joinString(refData, true);
-            output = this.replaceAll(output, `{{REF:${refName}}}`, refString);
+        for (let [categoryName, categoryData] of Object.entries(refDatas)) {
+            for (let [refName, refData] of Object.entries(categoryData)) {
+                let refString = JsonUtils.joinString(refData, true);
+                output = this.replaceAll(output, `{{REF:${categoryName}.${refName}}}`, refString);
+            }
         }
         return output;
     }

@@ -41,16 +41,20 @@ export class MultilingualService {
             internalData.embeds = EmbedBuilder.buildEmbeds(rawFileData);
 
             if (rawFileData.refs) {
-                for (let [refName, refData] of Object.entries(rawFileData.refs)) {
-                    let ref = JsonUtils.joinString(refData);
-                    internalData.refs[refName] = ref;
+                for (let [categoryName, categoryData] of Object.entries(rawFileData.refs)) {
+                    for (let [refName, refData] of Object.entries(categoryData)) {
+                        let ref = JsonUtils.joinString(refData);
+                        internalData.refs[`${categoryName}.${refName}`] = ref;
+                    }
                 }
             }
 
             if (rawFileData.regexes) {
-                for (let [regexName, regexString] of Object.entries(rawFileData.regexes)) {
-                    let regex = RegexUtils.extractRegex(regexString);
-                    internalData.regexes[regexName] = regex;
+                for (let [categoryName, categoryData] of Object.entries(rawFileData.regexes)) {
+                    for (let [regexName, regexString] of Object.entries(categoryData)) {
+                        let regex = RegexUtils.extractRegex(regexString);
+                        internalData.regexes[`${categoryName}.${regexName}`] = regex;
+                    }
                 }
             }
 

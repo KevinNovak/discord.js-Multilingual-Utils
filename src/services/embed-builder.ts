@@ -5,14 +5,18 @@ import { JsonUtils, StringUtils } from '../utils';
 
 export class EmbedBuilder {
     public static buildEmbeds(fileData: FileData): { [embedName: string]: MessageEmbed } {
-        let defaultEmbed = fileData.default ? this.buildEmbed(fileData.default) : undefined;
+        let defaultEmbed = fileData.defaultEmbed
+            ? this.buildEmbed(fileData.defaultEmbed)
+            : undefined;
 
         let embeds = {};
 
         if (fileData.embeds) {
-            for (let [embedName, embedData] of Object.entries(fileData.embeds)) {
-                let embed = this.buildEmbed(embedData, defaultEmbed);
-                embeds[embedName] = embed;
+            for (let [categoryName, categoryData] of Object.entries(fileData.embeds)) {
+                for (let [embedName, embedData] of Object.entries(categoryData)) {
+                    let embed = this.buildEmbed(embedData, defaultEmbed);
+                    embeds[`${categoryName}.${embedName}`] = embed;
+                }
             }
         }
 

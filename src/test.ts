@@ -17,7 +17,7 @@ client.on('message', async msg => {
     let args = msg.content.split(' ');
     switch (args[0]) {
         case 'testEmbed': {
-            let embed = multilingualService.getEmbed('example', 'en', {
+            let embed = multilingualService.getEmbed('myCategory.example', 'en', {
                 EXAMPLE_VARIABLE: 'Example Variable',
             });
             await msg.channel.send(embed);
@@ -31,7 +31,7 @@ client.on('message', async msg => {
                 return;
             }
 
-            let regex = multilingualService.getRegex('example', 'en');
+            let regex = multilingualService.getRegex('myCategory.example', 'en');
             let result = regex.test(args[1]);
             if (result) {
                 await msg.channel.send('Value matched!');
@@ -43,7 +43,7 @@ client.on('message', async msg => {
         }
 
         case 'testRef': {
-            let ref = multilingualService.getRef('exampleReference', 'en');
+            let ref = multilingualService.getRef('myCategory.exampleReference', 'en');
             await msg.channel.send(ref);
             return;
         }
