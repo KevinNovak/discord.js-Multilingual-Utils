@@ -81,7 +81,9 @@ export class MultilingualService {
             }
             fileData = JSON.parse(replacedFileContents);
         } catch (error) {
-            return;
+            throw new Error(
+                `An error occurred while obtaining language data from "${filePath}".\n${error}`
+            );
         }
 
         return fileData;
