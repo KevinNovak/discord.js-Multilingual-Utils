@@ -68,8 +68,8 @@ export class MultilingualService {
 
         let fileData: FileData;
         try {
-            let replacedFileContents = fileContents;
             // Replace up to X levels deep
+            let replacedFileContents = fileContents;
             for (let i = 0; i < this.replacementLevels; i++) {
                 let rawFileData: FileData = JSON.parse(replacedFileContents);
                 if (rawFileData.refs) {
