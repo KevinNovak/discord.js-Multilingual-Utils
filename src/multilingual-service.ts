@@ -66,7 +66,6 @@ export class MultilingualService {
         // Read file
         let fileContents = FileUtils.readFile(filePath);
 
-        // Check if file is JSON
         let fileData: FileData;
         try {
             let replacedFileContents = fileContents;
