@@ -2,14 +2,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Start",
             "type": "node",
             "request": "launch",
-            "name": "Start",
-            "skipFiles": ["<node_internals>/**"],
-            "program": "${workspaceFolder}\\dist\\test.js",
+            "protocol": "inspector",
             "preLaunchTask": "tsc",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "node",
+            "program": "${workspaceFolder}\\dist\\test.js",
+            "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
             "internalConsoleOptions": "openOnSessionStart",
-            "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
+            "skipFiles": ["<node_internals>/**"],
+            "restart": true
         }
     ]
 }
