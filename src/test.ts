@@ -7,7 +7,9 @@ let Config = require('../config/config.json');
 
 let folderPath = path.join(__dirname, '../lang');
 let multilingualService = new MultilingualService(folderPath);
-let client = new Client();
+let client = new Client({
+    intents: ['GUILDS', 'GUILD_MESSAGES'],
+});
 
 client.on('ready', () => {
     console.log(`Logged in as '${client.user.tag}'!`);
