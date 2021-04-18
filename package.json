@@ -15,7 +15,7 @@
         "test": "npm run build && node --enable-source-maps dist/test.js"
     },
     "dependencies": {
-        "discord.js": "github:discordjs/discord.js#e848d25c86fcd4a11a7879f7dcd55d0bc93faa6d"
+        "discord.js": "github:discordjs/discord.js#1be67b88516b104073e46574a180498bad2aa02b"
     },
     "devDependencies": {
         "@types/node": "14.14.37",
