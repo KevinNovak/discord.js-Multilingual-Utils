@@ -1,7 +1,7 @@
 # discord.js-Multilingual-Utils
 
 [![NPM Version](https://img.shields.io/npm/v/discord.js-multilingual-utils.svg?maxAge=3600)](https://www.npmjs.com/package/discord.js-multilingual-utils)
-[![discord.js Version](https://img.shields.io/npm/dependency-version/discord.js-multilingual-utils/discord.js)](https://discord.js.org/)
+[![discord.js Version](https://img.shields.io/npm/dependency-version/discord.js-multilingual-utils/peer/discord.js)](https://discord.js.org/)
 [![Downloads](https://img.shields.io/npm/dt/discord.js-multilingual-utils.svg?maxAge=3600)](https://www.npmjs.com/package/discord.js-multilingual-utils)
 
 Multilingual utilities for [discord.js](https://github.com/discordjs/discord.js/).
