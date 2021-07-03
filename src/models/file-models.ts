@@ -20,6 +20,7 @@ export interface FileData {
 }
 
 export interface EmbedData {
+    author?: AuthorData;
     title?: string | string[];
     url?: string;
     thumbnail?: string;
@@ -35,6 +36,12 @@ export interface FieldData {
     name: string | string[];
     value: string | string[];
     inline?: boolean;
+}
+
+export interface AuthorData {
+    name: string;
+    icon?: string;
+    url?: string;
 }
 
 export interface FooterData {

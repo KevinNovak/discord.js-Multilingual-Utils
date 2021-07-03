@@ -5,6 +5,11 @@
     "embeds": {
         "myCategory": {
             "example": {
+                "author": {
+                    "name": "Yeet Bot",
+                    "icon": "{{ICON_URL}}",
+                    "url": "https://birthdaybot.scottbucher.dev"
+                },
                 "title": "{{REF:myCategory.exampleTitle}}",
                 "description": [
                     "This is an example",
@@ -15,7 +20,12 @@
                     "",
                     "{{REF:myCategory.exampleReference}}"
                 ],
-                "fields": [{ "name": "Example Field", "value": "This is an example field!" }]
+                "thumbnail": "{{ICON_URL}}",
+                "fields": [{ "name": "Example Field", "value": "This is an example field!" }],
+                "footer": {
+                    "text": "Yeet Bot Footer",
+                    "icon": "{{ICON_URL}}"
+                }
             }
         }
     },

@@ -1,7 +1,6 @@
 import { Client } from 'discord.js';
-import path from 'path';
-
 import { MultilingualService } from './multilingual-service';
+import path from 'path';
 
 let Config = require('../config/config.json');
 
@@ -19,6 +18,7 @@ client.on('message', async msg => {
         case 'testEmbed': {
             let embed = multilingualService.getEmbed('myCategory.example', 'en', {
                 EXAMPLE_VARIABLE: 'Example Variable',
+                ICON_URL: msg.client.user.avatarURL(),
             });
             await msg.channel.send(embed);
             return;

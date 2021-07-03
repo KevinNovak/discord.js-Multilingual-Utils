@@ -1,7 +1,7 @@
-import { MessageEmbed } from 'discord.js';
-
 import { EmbedData, FileData } from '../models/file-models';
 import { JsonUtils, StringUtils } from '../utils';
+
+import { MessageEmbed } from 'discord.js';
 
 export class EmbedBuilder {
     public static buildEmbeds(fileData: FileData): { [embedName: string]: MessageEmbed } {
@@ -25,6 +25,11 @@ export class EmbedBuilder {
 
     private static buildEmbed(embedData: EmbedData, defaultEmbed?: MessageEmbed): MessageEmbed {
         let embed = new MessageEmbed(defaultEmbed ?? undefined);
+
+        let author = embedData.author;
+        if (author?.name) {
+            embed.setAuthor(author.name, author.icon, author.url);
+        }
 
         let title = JsonUtils.joinString(embedData.title);
         if (title) {
@@ -91,12 +96,25 @@ export class EmbedBuilder {
         embed: MessageEmbed,
         variables?: { [name: string]: string }
     ): MessageEmbed {
+        if (embed.author) {
+            embed.author.name = StringUtils.replaceVariables(embed.author.name, variables);
+            embed.author.iconURL = StringUtils.replaceVariables(embed.author.iconURL, variables);
+            embed.author.url = StringUtils.replaceVariables(embed.author.url, variables);
+        }
         if (embed.title) {
             embed.title = StringUtils.replaceVariables(embed.title, variables);
         }
 
         if (embed.description) {
             embed.description = StringUtils.replaceVariables(embed.description, variables);
+        }
+
+        if (embed.thumbnail) {
+            embed.thumbnail.url = StringUtils.replaceVariables(embed.thumbnail.url, variables);
+        }
+
+        if (embed.image) {
+            embed.image.url = StringUtils.replaceVariables(embed.image.url, variables);
         }
 
         for (let [index, field] of embed.fields.entries()) {
@@ -106,6 +124,7 @@ export class EmbedBuilder {
 
         if (embed.footer?.text) {
             embed.footer.text = StringUtils.replaceVariables(embed.footer.text, variables);
+            embed.footer.iconURL = StringUtils.replaceVariables(embed.footer.iconURL, variables);
         }
 
         return embed;
