@@ -1,7 +1,7 @@
 {
     "name": "discord.js-multilingual-utils",
-    "version": "1.4.0",
-    "author": "Kevin Novak",
+    "version": "1.5.0",
+    "author": "Kevin Novak & Scott Bucher",
     "description": "Multilingual utilities for discord.js.",
     "license": "MIT",
     "main": "dist/index.js",
