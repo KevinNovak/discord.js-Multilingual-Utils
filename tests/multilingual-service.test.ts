@@ -13,6 +13,8 @@ describe('multilingual service', (): void => {
         expect(embed.description).is.equal(
             `This is an example\n\nI can have new lines!\n\nThis is an **Example Variable**!\n\nThis is an example reference!\n\nI can be a single line or have multiple lines!`
         );
+        expect(embed.fields[0].name).is.equal('EXAMPLE Field');
+        expect(embed.fields[0].value).is.equal('This is an EXAMPLE field!');
     });
 
     it('get regex', (): void => {

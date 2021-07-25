@@ -21,7 +21,12 @@
                     "{{REF:myCategory.exampleReference}}"
                 ],
                 "thumbnail": "{{ICON_URL}}",
-                "fields": [{ "name": "Example Field", "value": "This is an example field!" }],
+                "fields": [
+                    {
+                        "name": "{{REF:myCategory.example}} Field",
+                        "value": "This is an {{REF:myCategory.example}} field!"
+                    }
+                ],
                 "footer": {
                     "text": "Yeet Bot Footer",
                     "icon": "{{ICON_URL}}"
@@ -36,6 +41,7 @@
     },
     "refs": {
         "myCategory": {
+            "example": "EXAMPLE",
             "exampleTitle": "Example Embed",
             "exampleReference": [
                 "This is an example reference!",
