@@ -117,10 +117,10 @@ export class EmbedBuilder {
             embed.image.url = StringUtils.replaceVariables(embed.image.url, variables);
         }
 
-        for (let [index, field] of embed.fields.entries()) {
-            embed.fields[index].name = StringUtils.replaceVariables(field.name, variables);
-            embed.fields[index].value = StringUtils.replaceVariables(field.value, variables);
-        }
+        embed.fields.forEach(field => {
+            field.name = StringUtils.replaceVariables(field.name, variables);
+            field.value = StringUtils.replaceVariables(field.value, variables);
+        });
 
         if (embed.footer?.text) {
             embed.footer.text = StringUtils.replaceVariables(embed.footer.text, variables);
