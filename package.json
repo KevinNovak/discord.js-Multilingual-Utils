@@ -19,7 +19,7 @@
         "format": "prettier --check .",
         "format:fix": "prettier --write .",
         "build": "tsc",
-        "prepare": "npm run build",
+        "prepare": "rm -rf dist && npm run build",
         "test": "ts-mocha tests/**/*.test.ts"
     },
     "peerDependencies": {
