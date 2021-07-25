@@ -1,14 +1,19 @@
 {
     "compilerOptions": {
-        "target": "es2020",
+        "target": "es2015", // TODO: Make compatible with es5
         "module": "commonjs",
-        "lib": ["es2020"],
+        "lib": ["es2021"],
+        "declaration": true,
         "sourceMap": true,
         "outDir": "./dist",
         "rootDir": "./src",
+        "strict": false, // TODO: Make compatible with strict mode
         "moduleResolution": "node",
         "esModuleInterop": true,
-        "composite": true,
-        "declarationMap": true
-    }
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "exclude": ["dist", "node_modules", "tests"]
 }

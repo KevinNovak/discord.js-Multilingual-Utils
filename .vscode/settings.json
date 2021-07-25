@@ -8,5 +8,13 @@
     "[typescript]": {
         "editor.formatOnSave": true
     },
-    "cSpell.words": ["Novak", "datas", "multilanguage", "regexes"]
+    "cSpell.enabled": true,
+    "cSpell.words": [
+        "Bucher",
+        "Novak",
+        "datas",
+        "multilanguage",
+        "parens",
+        "regexes"
+    ]
 }

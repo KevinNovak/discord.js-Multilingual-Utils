@@ -21,7 +21,7 @@ export class MultilingualService {
     } = {};
 
     // TODO: Optional "options" object
-    constructor(folderPath: string, private replacementLevels = 10) {
+    constructor(folderPath: string, private replacementLevels: number = 10) {
         let fileNames = FileUtils.readFileNames(folderPath);
         for (let fileName of fileNames) {
             // Extract file language code
