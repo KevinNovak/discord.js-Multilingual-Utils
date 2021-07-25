@@ -20,7 +20,8 @@
         "format:fix": "prettier --write .",
         "build": "tsc",
         "prepare": "rm -rf dist && npm run build",
-        "test": "ts-mocha tests/**/*.test.ts"
+        "test": "npm run test:unit",
+        "test:unit": "ts-mocha tests/**/*.test.ts"
     },
     "peerDependencies": {
         "discord.js": ">=12.0.0"
