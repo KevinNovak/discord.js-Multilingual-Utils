@@ -96,11 +96,18 @@ export class EmbedBuilder {
         embed: MessageEmbed,
         variables?: { [name: string]: string }
     ): MessageEmbed {
-        if (embed.author) {
+        if (embed.author?.name) {
             embed.author.name = StringUtils.replaceVariables(embed.author.name, variables);
-            embed.author.iconURL = StringUtils.replaceVariables(embed.author.iconURL, variables);
+        }
+
+        if (embed.author?.url) {
             embed.author.url = StringUtils.replaceVariables(embed.author.url, variables);
         }
+
+        if (embed.author?.iconURL) {
+            embed.author.iconURL = StringUtils.replaceVariables(embed.author.iconURL, variables);
+        }
+
         if (embed.title) {
             embed.title = StringUtils.replaceVariables(embed.title, variables);
         }
@@ -124,6 +131,9 @@ export class EmbedBuilder {
 
         if (embed.footer?.text) {
             embed.footer.text = StringUtils.replaceVariables(embed.footer.text, variables);
+        }
+
+        if (embed.footer?.iconURL) {
             embed.footer.iconURL = StringUtils.replaceVariables(embed.footer.iconURL, variables);
         }
 
