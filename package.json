@@ -23,7 +23,7 @@
         "prepare": "rm -rf dist && npm run build",
         "test": "npm run test:unit",
         "test:unit": "ts-mocha tests/**/*.test.ts",
-        "test:e2e": "npm run build:e2e && node --enable-source-maps tests/e2e/dist/app.js"
+        "test:e2e": "npm run build:e2e && node --enable-source-maps tests/e2e/dist/tests/e2e/src/app.js"
     },
     "peerDependencies": {
         "discord.js": ">=12.0.0"
