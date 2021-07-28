@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "test:e2e",
+            "type": "node",
+            "request": "launch",
+            "protocol": "inspector",
+            "preLaunchTask": "build:e2e",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "node",
+            "program": "${workspaceFolder}\\tests\\e2e\\dist\\tests\\e2e\\src\\app.js",
+            "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+            "internalConsoleOptions": "openOnSessionStart",
+            "skipFiles": ["<node_internals>/**"],
+            "restart": false
+        }
+    ]
+}

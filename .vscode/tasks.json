@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build:e2e",
+            "type": "shell",
+            "command": "${workspaceFolder}\\node_modules\\.bin\\tsc",
+            "args": ["--project", "${workspaceFolder}\\tests\\e2e\\tsconfig.json"]
+        }
+    ],
+    "windows": {
+        "options": {
+            "shell": {
+                "executable": "cmd.exe",
+                "args": ["/d", "/c"]
+            }
+        }
+    }
+}
