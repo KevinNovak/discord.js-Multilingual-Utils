@@ -22,7 +22,7 @@
         "build:e2e": "tsc --project tests/e2e/tsconfig.json",
         "prepare": "rm -rf dist && npm run build",
         "test": "npm run test:unit",
-        "test:unit": "ts-mocha tests/**/*.test.ts",
+        "test:unit": "ts-mocha tests/unit/**/*.test.ts",
         "test:e2e": "npm run build:e2e && node --enable-source-maps tests/e2e/dist/tests/e2e/src/app.js"
     },
     "peerDependencies": {

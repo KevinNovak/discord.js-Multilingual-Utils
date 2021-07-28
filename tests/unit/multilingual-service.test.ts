@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import path from 'path';
-import { MultilingualService } from '../src/multilingual-service';
+import { MultilingualService } from '../../src/multilingual-service';
 
 describe('multilingual service', (): void => {
-    let folderPath = path.join(__dirname, './data');
+    let folderPath = path.join(__dirname, '../data');
     let multilingualService = new MultilingualService(folderPath);
 
     it('get embed', (): void => {
