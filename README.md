@@ -88,7 +88,7 @@ client.on('message', async msg => {
             let embed = multilingualService.getEmbed('myCategory.example', 'en', {
                 EXAMPLE_VARIABLE: 'Example Variable',
             });
-            await msg.channel.send(embed);
+            await msg.channel.send({ embeds: [embed] });
             return;
         }
 
