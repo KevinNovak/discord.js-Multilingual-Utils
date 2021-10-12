@@ -6,6 +6,50 @@
 
 Multilingual utilities for [discord.js](https://github.com/discordjs/discord.js/).
 
+## Deprecation Notice
+
+This package has been deprecated in favor of [Linguini](https://github.com/KevinNovak/Linguini#readme), a more flexible and feature-rich evolution of discord.js-Multilingual-Utils.
+
+To replicate discord.js-Multilingual-Utils's functionality, you'll need to implement a [Custom Type Mapper](https://github.com/KevinNovak/Linguini#custom-type-mappers) with Linguini.
+
+Here is an example of how you can use Linguini to replace discord.js-Multilingual-Utils:
+
+```js
+import { MessageEmbed } from 'discord.js';
+import { Linguini, Utils } from 'linguini';
+
+// ...
+
+// Creating a custom MessageEmbed Type Mapper
+let messageEmbedTm = jsonValue => {
+    return new MessageEmbed({
+        author: jsonValue.author,
+        title: Utils.join(jsonValue.title, '\n'),
+        url: jsonValue.url,
+        thumbnail: jsonValue.thumbnail,
+        description: Utils.join(jsonValue.description, '\n'),
+        fields: jsonValue.fields?.map(field => ({
+            name: Utils.join(field.name, '\n'),
+            value: Utils.join(field.value, '\n'),
+        })),
+        image: jsonValue.image,
+        footer: {
+            text: Utils.join(jsonValue.footer?.text, '\n'),
+            iconURL: Utils.join(jsonValue.footer?.icon, '\n'),
+        },
+        timestamp: jsonValue.timestamp ? Date.now() : undefined,
+        color: jsonValue.color ?? '#0099ff',
+    });
+};
+
+// ...
+
+// Using our custom Type Mapper to get an embed:
+let myEmbed = linguini.get('myCategory.example', 'en', messageEmbedTm);
+```
+
+See [Linguini's documentation](https://github.com/KevinNovak/Linguini#readme) for more information.
+
 ## Installation
 
 `npm install discord.js-multilingual-utils`
